@@ -1,5 +1,25 @@
+<?php
+require_once 'projetos.php';
+
+// Variáveis de conexão
+$host = 'localhost';
+$user = 'root';
+$password = '';
+$db = 'portifolio-api';
+
+// Instância da classe Projeto
+$projetoObj = new Projeto($host, $user, $password, $db);
+$projetos = $projetoObj->listarProjetos();
+?>
+
+
+
 <!DOCTYPE html>
+
     <html lang="en">
+
+
+    
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -725,85 +745,46 @@
     </section>
 
 
-          <!--==================== PORTFOLIO ====================-->
-    <section class="portfolio section" id="portfolio">
-        <h2 class="section__title">Portifólio</h2>
-        <span class="section__subtitle">Projectos Mais Recentes</span>
-        
-        <div class="portfolio__container container swiper-container">
-            <div class="swiper-wrapper">
-                <!--==================== PORTFOLIO 1 ====================-->
+ <!--==================== PORTFOLIO ====================-->
+ <section class="portfolio section" id="portfolio">
+    <h2 class="section__title">Portfólio</h2>
+    <span class="section__subtitle">Projetos Mais Recentes <a href="exibir.html">( Ver Todos )</a> </span>
+
+    <div class="portfolio__container container swiper-container">
+        <div class="swiper-wrapper">
+            <?php foreach ($projetos as $projeto): ?>
                 <div class="portfolio__content grid swiper-slide">
-                    <img src="assets/img/portfolio2.jpg" alt="" class="portfolio__img">
+                    <img src="<?= htmlspecialchars($projeto['url_imagem']); ?>" alt="Imagem do projeto" class="portfolio__img">
 
                     <div class="portfolio__data">
-                        <h3 class="portfolio__title">ONLINE FUTSAL FIELD BOOKING</h3>
+                        <h3 class="portfolio__title"><?= htmlspecialchars($projeto['titulo']); ?></h3>
                         <p class="portfolio__description">
-                            Web for online Futsal Field Booking for Karawang area.
+                            <?= htmlspecialchars($projeto['descricao']); ?>
                         </p>
                         <a href="#" class="button button--flex button--small portfolio__button">
                             Rodar
                             <i class="uil uil-play button__icon"></i>
-                        </a> 
-                        <a href="#" class="button button--flex button--small portfolio__button">
+                        </a>
+                        <a href="<?= htmlspecialchars($projeto['link_do_codigo_fonte']); ?>" 
+                           class="button button--flex button--small portfolio__button" target="_blank">
                             Código 
                             <i class="uil uil-github button__icon"></i>
                         </a>
                     </div>
                 </div>
-                <!--==================== PORTFOLIO 2 ====================-->
-                <div class="portfolio__content grid swiper-slide">
-                    <img src="assets/img/portfolio1.jpg" alt="" class="portfolio__img">
-
-                    <div class="portfolio__data">
-                        <h3 class="portfolio__title">ONLINE FUTSAL FIELD BOOKING</h3>
-                        <p class="portfolio__description">
-                            Web for online Futsal Field Booking for Karawang area.
-                        </p>
-                        <a href="#" class="button button--flex button--small portfolio__button">
-                            Rodar
-                            <i class="uil uil-play button__icon"></i>
-                        </a> 
-                        <a href="#" class="button button--flex button--small portfolio__button">
-                            Código 
-                            <i class="uil uil-github button__icon"></i>
-                        </a>
-                    </div>
-                </div>
-                <!--==================== PORTFOLIO 3 ====================-->
-                <div class="portfolio__content grid swiper-slide">
-                    <img src="assets/img/portfolio3.jpg" alt="" class="portfolio__img">
-
-                    <div class="portfolio__data">
-                        <h3 class="portfolio__title">ONLINE FUTSAL FIELD BOOKING</h3>
-                        <p class="portfolio__description">
-                            Web for online Futsal Field Booking for Karawang area.
-                        </p>
-                        <a href="#" class="button button--flex button--small portfolio__button">
-                            Rodar
-                            <i class="uil uil-play button__icon"></i>
-                        </a> 
-                        <a href="#" class="button button--flex button--small portfolio__button">
-                            Código 
-                            <i class="uil uil-github button__icon"></i>
-                        </a>
-                    </div>
-                </div>
-             
-
-
-            </div>
-            <div class="swiper-button-next">
-                <i class="uil uil-angle-right-b swiper-portfolio-icon"></i>
-            </div>
-            <div class="swiper-button-prev">
-                <i class="uil uil-angle-left-b swiper-portfolio-icon"></i>
-            </div>
-            
-            <div class="swiper-pagination"></div>
+            <?php endforeach; ?>
         </div>
-    </section>
 
+        <div class="swiper-button-next">
+            <i class="uil uil-angle-right-b swiper-portfolio-icon"></i>
+        </div>
+        <div class="swiper-button-prev">
+            <i class="uil uil-angle-left-b swiper-portfolio-icon"></i>
+        </div>
+
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
     <!--==================== PROJECT IN MIND ====================-->
     <!-- <section class="project section">
         <div class="project__bg">

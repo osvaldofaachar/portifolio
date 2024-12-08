@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos Projectos</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <section id="projetos">
+        <h2>Meus Projetos</h2>
+        <div id="lista-projetos"></div>
+    </section>
+    
+    <script>
+        async function carregarProjetos() {
+            const response = await fetch('todosProjetos.php');
+            const projetos = await response.json();
+    
+            const listaProjetos = document.getElementById('lista-projetos');
+            listaProjetos.innerHTML = projetos.map(projeto => `
+                <div class="projeto">
+                    <img src="${projeto.url_imagem}" alt="${projeto.titulo}">
+                    <h3>${projeto.titulo}</h3>
+                    <p>${projeto.descricao}</p>
+                    <a href="${projeto.url_projeto}" target="_blank">Ver Projeto</a>
+                    <a href="${projeto.link_do_codigo_fonte}" target="_blank">Código Fonte</a>
+                </div>
+            `).join('');
+        }
+    
+        carregarProjetos();
+    </script>
+    
+</body>
+</html>
